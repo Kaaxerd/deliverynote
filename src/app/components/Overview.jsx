@@ -5,8 +5,33 @@ import './Overview.css';
 const Overview = () => {
     return (
         <div className={styles.overviewContainer}>
-            <h1 className='overviewTitle'>Overview</h1>
-            <p className='overviewText'>This is the overview component.</p>
+            <h3 className='overviewTitle'>Overview</h3>
+            <ul className='overviewList'>
+                <li className='overviewItem'>
+                    <i className='icon-summary'></i>
+                    <span>Resumen</span>
+                </li>
+                <li className='overviewItem'>
+                    <i className='icon-clients'></i>
+                    <span>Clientes</span>
+                </li>
+                <li className='overviewItem'>
+                    <i className='icon-projects'></i>
+                    <span>Proyectos</span>
+                </li>
+                <li className='overviewItem'>
+                    <i className='icon-delivery-notes'></i>
+                    <span>Albaranes</span>
+                </li>
+                <li className='overviewItem'>
+                    <i className='icon-suppliers'></i>
+                    <span>Proveedores</span>
+                </li>
+                <li className='overviewItem'>
+                    <i className='icon-settings'></i>
+                    <span>Ajustes</span>
+                </li>
+            </ul>
         </div>
     );
 };

@@ -1,8 +1,24 @@
+/* CSS GLOBAL */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  --background: #111111;
+  --foreground: #f0f0f0; /* Light grey color for text */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+h1 {
+  font-size: 2.5rem; /* Adjust the size as needed */
+}
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -19,3 +35,4 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+ */

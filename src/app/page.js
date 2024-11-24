@@ -1,3 +1,7 @@
+//
+// PÁGINA PRINCIPAL
+//
+
 import Header from './components/Header';
 
 export default function Home() {
@@ -5,6 +9,7 @@ export default function Home() {
     <>
       <Header />
       <h1>Home</h1>
+      {/* Explicar la página... */}
     </>
   );
 }
