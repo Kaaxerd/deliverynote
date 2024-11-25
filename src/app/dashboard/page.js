@@ -1,24 +1,17 @@
-//
-// DASHBOARD / PANEL DE CONTROL
-//
+import React from 'react';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import './styles.css';
 
-"use client";
-import ClientList from "../components/ClientList";
-import Header from "../components/Header";
-import Overview from "../components/Overview";
-
-const dashboard = () => {
+export default function DashboardPage() {
     return (
-        <div className="dashboard-container">
+        <div className='layout'>
             <Header />
-            <div className="content-container">
-                <Overview />
-                <div className="main-content">
-                    <ClientList />
-                </div>
+            <div className='main'>
+                <Sidebar />
+                <h1>Welcome to the Dashboard</h1>
+                <p>This is your default dashboard page.</p>
             </div>
         </div>
     );
-};
-
-export default dashboard;
+}

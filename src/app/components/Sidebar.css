@@ -1,0 +1,40 @@
+.sidebar {
+    flex: 0 0 20%; /* Ancho fijo de la barra lateral */
+    background-color: #333; /* Fondo oscuro */
+    color: white; /* Texto en blanco */
+    height: 100%; /* Ocupa toda la altura de la pantalla */
+    padding: 16px; /* Espaciado interno */
+    box-sizing: border-box;
+    
+    justify-content: start; /* Alinea los elementos al inicio */
+}
+
+.sidebar ul {
+    display: flex; /* Asegura que el contenido esté bien alineado */
+    flex-direction: column; /* Orienta los elementos en vertical */
+    list-style: none; /* Elimina los puntos de lista */
+    padding: 0; /* Elimina el padding predeterminado */
+    margin: 0; /* Elimina el margen predeterminado */
+    flex: 1; /* Permite que la lista crezca */
+}
+
+.sidebar li {
+    margin-bottom: 16px; /* Espacio entre elementos */
+}
+
+.sidebar li:last-child {
+    margin-bottom: 0; /* Elimina el margen del último elemento */
+}
+
+.sidebar li a {
+    color: white; /* Texto en blanco */
+    text-decoration: none; /* Sin subrayado */
+    padding: 8px; /* Espaciado interno */
+    display: block; /* Asegura que toda el área sea clicable */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Animación suave al pasar el cursor */
+}
+
+.sidebar li a:hover {
+    background-color: #575757; /* Cambia el fondo al pasar el cursor */
+}

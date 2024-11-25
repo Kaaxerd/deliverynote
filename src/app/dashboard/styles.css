@@ -1,0 +1,18 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    display: flex; /* Diseño en fila */
+    flex: 1;
+}
+
+.content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}

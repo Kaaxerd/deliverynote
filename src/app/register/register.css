@@ -2,15 +2,15 @@ h1 {
     text-align: center;
 }
 
-.login-container {
+.register-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Cambiado de center a flex-start */
+    align-items: flex-start;
     height: 100vh;
-    padding-top: 20px; /* Añadido para dar un poco de espacio desde arriba */
+    padding-top: 20px;
 }
 
-.login-container form {
+.register-container form {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
