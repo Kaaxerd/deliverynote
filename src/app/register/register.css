@@ -16,3 +16,9 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.register-container form input[type="text"],
+.register-container form input[type="password"],
+.register-container form input[type="email"] {
+    color: black;
+}

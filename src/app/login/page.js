@@ -9,13 +9,54 @@ import Header from '../components/Header';
 import './login.css';
 
 export default function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle login logic here
-        console.log('Username:', username);
+        
+        try {
+            const response = await fetch('https://bildy-rpmaya.koyeb.app/api/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                }),
+            });
+
+            const token = localStorage('jwt');
+
+            const contentType = response.headers.get('content-type');
+
+            if (response.ok) {
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    console.log('User logged in successfully:', data);
+                    alert('User logged in successfully!');
+                } else {
+                    const textData = await response.text(); // Si no es JSON, obten el texto
+                    console.log('User logged in successfully:', textData);
+                    alert('User logged in successfully!');
+                }
+            } else {
+                if (contentType && contentType.includes('application/json')) {
+                    const errorData = await response.json();
+                    console.error('Login failed:', errorData);
+                    alert(`Login failed: ${errorData.message || 'Unknown error'}`);
+                } else {
+                    const errorText = await response.text();
+                    console.error('Login failed:', errorText);
+                    alert(`Login failed: ${errorText}`);
+                }
+            }
+        } catch(error) {
+            console.error(error);
+        }
+
+        console.log('Email:', email);
         console.log('Password:', password);
     };
 
@@ -28,12 +69,12 @@ export default function Login() {
             <div className="login-container">
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="email">Email:</label>
                         <input
                             type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div>

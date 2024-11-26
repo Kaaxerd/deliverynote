@@ -9,7 +9,6 @@ import './register.css';
 
 export default function Register() {
     const [formData, setFormData] = useState({
-        username: '',
         email: '',
         password: ''
     });
@@ -22,11 +21,45 @@ export default function Register() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log(formData);
+    
+        try {
+            const response = await fetch('https://bildy-rpmaya.koyeb.app/api/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+    
+            if (response.ok) {
+                const data = await response.json(); // Captura la respuesta que incluye el token
+                console.log('User registered successfully:', data);
+    
+                if (data.token) {
+                    console.log('Generated token:', data.token);
+                    alert(`User registered successfully! Token: ${data.token}`);
+                    localStorage.setItem('jwt', data.token);
+
+                    window.location.href = '/validation';
+                } else {
+                    alert('User registered successfully, but no token received.');
+                }
+            } else {
+                const errorData = await response.json();
+                console.error('Registration failed:', errorData);
+                alert(`Registration failed: ${errorData.message || 'Unknown error'}`);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+            alert('An error occurred during registration. Please try again.');
+        }
     };
+    
 
     return (
         <>
@@ -35,7 +68,7 @@ export default function Register() {
 
             <div className="register-container">
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    {/* <div>
                         <label>Username:</label>
                         <input
                             type="text"
@@ -43,7 +76,7 @@ export default function Register() {
                             value={formData.username}
                             onChange={handleChange}
                         />
-                    </div>
+                    </div> */}
                     <div>
                         <label>Email:</label>
                         <input
