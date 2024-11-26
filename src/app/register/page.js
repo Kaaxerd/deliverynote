@@ -39,13 +39,19 @@ export default function Register() {
             if (response.ok) {
                 const data = await response.json(); // Captura la respuesta que incluye el token
                 console.log('User registered successfully:', data);
-    
+            
                 if (data.token) {
                     console.log('Generated token:', data.token);
                     alert(`User registered successfully! Token: ${data.token}`);
+                    
+                    // Guardar el token en localStorage
                     localStorage.setItem('jwt', data.token);
-
-                    window.location.href = '/validation';
+            
+                    // Leer el token de localStorage (por si necesitas verificar)
+                    const token = localStorage.getItem('jwt');
+                    console.log('Token retrieved from localStorage:', token);
+            
+                    window.location.href = '/validation'; // Redirige a la página de validación automáticamente
                 } else {
                     alert('User registered successfully, but no token received.');
                 }
