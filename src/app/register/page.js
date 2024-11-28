@@ -37,23 +37,22 @@ export default function Register() {
             });
     
             if (response.ok) {
-                const data = await response.json(); // Captura la respuesta que incluye el token
-                console.log('User registered successfully:', data);
-            
+                const data = await response.json();
+    
                 if (data.token) {
-                    console.log('Generated token:', data.token);
-                    alert(`User registered successfully! Token: ${data.token}`);
-                    
-                    // Guardar el token en localStorage
+                    // Guarda el token y el email en localStorage
                     localStorage.setItem('jwt', data.token);
-            
-                    // Leer el token de localStorage (por si necesitas verificar)
-                    const token = localStorage.getItem('jwt');
-                    console.log('Token retrieved from localStorage:', token);
-            
-                    window.location.href = '/validation'; // Redirige a la página de validación automáticamente
+                    localStorage.setItem('registeredEmail', formData.email);
+    
+                    // (Opcional) Guarda el código si la API lo devuelve en la respuesta
+                    if (data.verificationCode) {
+                        localStorage.setItem('verificationCode', data.verificationCode);
+                    }
+    
+                    // Redirige a la página de validación
+                    window.location.href = '/validation';
                 } else {
-                    alert('User registered successfully, but no token received.');
+                    throw new Error('Token not received from server.');
                 }
             } else {
                 const errorData = await response.json();
@@ -64,8 +63,7 @@ export default function Register() {
             console.error('An error occurred:', error);
             alert('An error occurred during registration. Please try again.');
         }
-    };
-    
+    };    
 
     return (
         <>

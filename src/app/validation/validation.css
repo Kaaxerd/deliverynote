@@ -23,14 +23,13 @@ h1, p {
 }
 
 .input-container input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    width: 40px; /* Ajusta el ancho para que no sean alargadas */
+    height: 40px; /* Aumenta la altura para que sean más grandes */
+    padding: 5px; /* Ajusta el padding para centrado interno */
+    font-size: 18px; /* Tamaño de fuente más grande */
+    text-align: center; /* Centra el texto */
     box-sizing: border-box;
-}
-
-.validation-container form input[type="text"],
-.validation-container form input[type="password"],
-.validation-container form input[type="email"] {
     color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Bordes redondeados */
 }

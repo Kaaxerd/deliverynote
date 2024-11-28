@@ -12,12 +12,32 @@ const ValidationPage = () => {
     const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
 
     const handleInputChange = (index, value) => {
-        if (value.length > 1) return; // Solo un carácter por campo
+        if (value.length > 1) return; // Asegurarse de que solo se ingrese un carácter
         const updatedCode = [...verificationCode];
         updatedCode[index] = value;
+    
+        // Mover al siguiente input si se escribe un número válido
+        if (value && index < verificationCode.length - 1) {
+            const nextInput = document.getElementById(`input-${index + 1}`);
+            if (nextInput) nextInput.focus();
+        }
+    
         setVerificationCode(updatedCode);
     };
     
+    const handleKeyDown = (index, event) => {
+        if (event.key === 'Backspace') {
+            const updatedCode = [...verificationCode];
+            updatedCode[index] = ''; // Borra el valor actual
+            setVerificationCode(updatedCode);
+    
+            // Mover al input anterior si existe
+            if (index > 0) {
+                const previousInput = document.getElementById(`input-${index - 1}`);
+                if (previousInput) previousInput.focus();
+            }
+        }
+    };    
     
     useEffect(() => {
         const sendVerificationCode = async () => {
@@ -25,8 +45,11 @@ const ValidationPage = () => {
                 const token = localStorage.getItem('jwt'); // Recupera el token desde localStorage
                 const email = localStorage.getItem('registeredEmail'); // Recupera el correo desde localStorage
     
+                // Verifica si el token y el email existen
                 if (!token || !email) {
-                    throw new Error('Token or email not found in localStorage');
+                    alert('Session expired. Please register again.');
+                    window.location.href = '/register'; // Redirige al registro si no hay token/email
+                    return;
                 }
     
                 const response = await fetch('https://bildy-rpmaya.koyeb.app/api/user/validation', {
@@ -35,56 +58,54 @@ const ValidationPage = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`, // Usa el token recuperado
                     },
-                    body: JSON.stringify({
-                        email: email, // Usa el correo recuperado
-                    }),
+                    body: JSON.stringify({ email }),
                 });
     
                 if (!response.ok) {
                     throw new Error('Failed to send verification code');
                 }
     
-                console.log('Verification code sent successfully');
+                const data = await response.json();
+                console.log('Verification code sent successfully:', data);
+    
+                // Guarda el código recibido (si la API lo devuelve)
+                if (data.code) {
+                    localStorage.setItem('verificationCode', data.code);
+                    console.log('Verification code stored locally:', data.code);
+                }
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error in sendVerificationCode:', error);
             }
         };
     
         sendVerificationCode();
-    }, []);
+    }, []);    
 
     const verifyCode = async () => {
         const code = verificationCode.join(''); // Combina los caracteres en un string
+        console.log('Entered code:', code); // Muestra el código ingresado
+    
         try {
-            const email = localStorage.getItem('registeredEmail'); // Recupera el correo desde localStorage
+            const storedCode = localStorage.getItem('verificationCode'); // Recupera el código de localStorage
+            console.log('Stored code:', storedCode); // Muestra el código almacenado
     
-            if (!email) {
-                throw new Error('Email not found in localStorage');
+            if (!storedCode) {
+                throw new Error('No verification code found in localStorage');
             }
     
-            const response = await fetch('https://bildy-rpmaya.koyeb.app/api/user/verify', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email, // Usa el correo recuperado
-                    code: code, // Código ingresado por el usuario
-                }),
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to verify code');
+            // Compara el código ingresado con el almacenado
+            if (code === storedCode) {
+                console.log('Code verified successfully!');
+                alert('Code verified successfully!');
+            } else {
+                console.log('Invalid code!');
+                alert('Invalid code, please try again.');
             }
-    
-            console.log('Code verified successfully');
-            alert('Code verified successfully!');
         } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to verify code. Please try again.');
+            console.error('Error during verification:', error);
+            alert('An error occurred during verification.');
         }
-    };
-    
+    };    
     
     return (
         <div>
@@ -94,49 +115,19 @@ const ValidationPage = () => {
             <div className="validation-container">
                 <div className='input-container'>
                     <div>
-                        <input
-                            type="text"
-                            maxLength="1"
-                            style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
-                            value={verificationCode[0]}
-                            onChange={(e) => handleInputChange(0, e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            maxLength="1"
-                            style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
-                            value={verificationCode[1]}
-                            onChange={(e) => handleInputChange(1, e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            maxLength="1"
-                            style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
-                            value={verificationCode[2]}
-                            onChange={(e) => handleInputChange(2, e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            maxLength="1"
-                            style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
-                            value={verificationCode[3]}
-                            onChange={(e) => handleInputChange(3, e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            maxLength="1"
-                            style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
-                            value={verificationCode[4]}
-                            onChange={(e) => handleInputChange(4, e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            maxLength="1"
-                            style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
-                            value={verificationCode[5]}
-                            onChange={(e) => handleInputChange(5, e.target.value)}
-                        />
-                    </div>
+                        {verificationCode.map((value, index) => (
+                            <input
+                                key={index}
+                                id={`input-${index}`} // Asigna un id único a cada input
+                                type="text"
+                                maxLength="1"
+                                style={{ width: '40px', height: '40px', marginRight: '5px', textAlign: 'center' }}
+                                value={value}
+                                onChange={(e) => handleInputChange(index, e.target.value)}
+                                onKeyDown={(e) => handleKeyDown(index, e)}
+                            />
+                        ))}
+                    </div> 
                     
                     <button onClick={verifyCode}>Verify</button>
                 </div>
