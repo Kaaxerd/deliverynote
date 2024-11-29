@@ -9,8 +9,13 @@ export default function DashboardPage() {
             <Header />
             <div className='main'>
                 <Sidebar />
-                <h1>Welcome to the Dashboard</h1>
-                <p>This is your default dashboard page.</p>
+
+                <div className='content'>
+                    <h1>Panel de control</h1>
+                    <p>This is your default dashboard page.</p>
+                    <p>Ay mi madre el bichoooooooo</p>
+                </div>
+                
             </div>
         </div>
     );

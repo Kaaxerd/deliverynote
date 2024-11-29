@@ -5,15 +5,23 @@
 }
 
 .main {
-    display: flex; /* Diseño en fila */
+    display: flex;
     flex: 1;
 }
 
 .content {
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
     flex: 1;
     padding: 16px;
-    overflow-y: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     box-sizing: border-box;
-    background-color: #f9f9f9;
+    background-color: #111111; /* Fondo negro */
+    color: white; /* Texto blanco */
+}
+
+.content h1, .content p {
+    margin: 10px 0;
 }

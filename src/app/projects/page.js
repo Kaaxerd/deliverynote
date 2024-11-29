@@ -3,14 +3,19 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import '../dashboard/styles.css';
 
-export default function ProjectsPage() {
+export default function DashboardPage() {
     return (
         <div className='layout'>
             <Header />
             <div className='main'>
                 <Sidebar />
-                <h1>Welcome to the Projects</h1>
-                <p>This is your default dashboard page.</p>
+
+                <div className='content'>
+                    <h1>Proyectos</h1>
+                    <p>This is your default dashboard page.</p>
+                    <p>Ay mi madre el bichoooooooo</p>
+                </div>
+                
             </div>
         </div>
     );
