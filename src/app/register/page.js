@@ -23,7 +23,7 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        
         try {
             const response = await fetch('https://bildy-rpmaya.koyeb.app/api/user/register', {
                 method: 'POST',
@@ -38,21 +38,19 @@ export default function Register() {
     
             if (response.ok) {
                 const data = await response.json();
+                console.log('Registration data:', data);
     
                 if (data.token) {
-                    // Guarda el token y el email en localStorage
+                    // Guardar información clave en localStorage
                     localStorage.setItem('jwt', data.token);
-                    localStorage.setItem('registeredEmail', formData.email);
-    
-                    // (Opcional) Guarda el código si la API lo devuelve en la respuesta
-                    if (data.verificationCode) {
-                        localStorage.setItem('verificationCode', data.verificationCode);
-                    }
+                    localStorage.setItem('registeredEmail', data.user.email);
+                    localStorage.setItem('userStatus', data.user.status); // Guarda el estado del usuario
     
                     // Redirige a la página de validación
                     window.location.href = '/validation';
                 } else {
-                    throw new Error('Token not received from server.');
+                    console.error('Token not received:', data);
+                    alert('Registration successful, but token not received.');
                 }
             } else {
                 const errorData = await response.json();
@@ -60,8 +58,8 @@ export default function Register() {
                 alert(`Registration failed: ${errorData.message || 'Unknown error'}`);
             }
         } catch (error) {
-            console.error('An error occurred:', error);
-            alert('An error occurred during registration. Please try again.');
+            console.error('An error occurred during registration:', error);
+            alert('An error occurred. Please try again.');
         }
     };    
 

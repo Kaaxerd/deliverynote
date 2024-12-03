@@ -42,58 +42,78 @@ const ValidationPage = () => {
     useEffect(() => {
         const sendVerificationCode = async () => {
             try {
-                const token = localStorage.getItem('jwt'); // Recupera el token desde localStorage
-                const email = localStorage.getItem('registeredEmail'); // Recupera el correo desde localStorage
+                const token = localStorage.getItem('jwt');
+                const email = localStorage.getItem('registeredEmail');
+                const status = localStorage.getItem('userStatus');
     
-                // Verifica si el token y el email existen
                 if (!token || !email) {
                     alert('Session expired. Please register again.');
-                    window.location.href = '/register'; // Redirige al registro si no hay token/email
+                    window.location.href = '/register';
                     return;
                 }
+    
+                if (status !== 'validated') {
+                    alert('Your account is not validated yet. Please check your email or contact support.');
+                    return;
+                }
+    
+                console.log('JWT Token:', token);
+                console.log('Registered Email:', email);
     
                 const response = await fetch('https://bildy-rpmaya.koyeb.app/api/user/validation', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`, // Usa el token recuperado
+                        'Authorization': `Bearer ${token}`,
                     },
                     body: JSON.stringify({ email }),
                 });
     
                 if (!response.ok) {
-                    throw new Error('Failed to send verification code');
+                    const errorText = await response.text();
+                    console.error('Error in API response:', errorText);
+                    if (response.status === 401) {
+                        alert('Authorization failed. Please ensure you are logged in and try again.');
+                    } else if (response.status === 400) {
+                        alert('Validation failed: Please ensure your email is registered.');
+                    } else {
+                        alert(`Failed to send verification code: ${errorText}`);
+                    }
+                    return;
                 }
     
                 const data = await response.json();
-                console.log('Verification code sent successfully:', data);
+                console.log('Validation data:', data);
     
-                // Guarda el código recibido (si la API lo devuelve)
                 if (data.code) {
                     localStorage.setItem('verificationCode', data.code);
-                    console.log('Verification code stored locally:', data.code);
+                    console.log('Verification code stored:', data.code);
+                } else {
+                    console.error('No verification code returned by the API.');
+                    alert('Failed to retrieve verification code.');
                 }
             } catch (error) {
                 console.error('Error in sendVerificationCode:', error);
+                alert('An unexpected error occurred. Please try again later.');
             }
         };
     
         sendVerificationCode();
-    }, []);    
+    }, []);   
 
     const verifyCode = async () => {
-        const code = verificationCode.join(''); // Combina los caracteres en un string
-        console.log('Entered code:', code); // Muestra el código ingresado
+        const code = verificationCode.join(''); // Combina los caracteres ingresados
+        console.log('Entered code:', code);
     
         try {
             const storedCode = localStorage.getItem('verificationCode'); // Recupera el código de localStorage
-            console.log('Stored code:', storedCode); // Muestra el código almacenado
+            console.log('Stored code:', storedCode);
     
             if (!storedCode) {
-                throw new Error('No verification code found in localStorage');
+                alert('No verification code found. Please request a new code.');
+                return;
             }
     
-            // Compara el código ingresado con el almacenado
             if (code === storedCode) {
                 console.log('Code verified successfully!');
                 alert('Code verified successfully!');

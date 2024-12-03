@@ -1,0 +1,79 @@
+.client-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.client-card {
+    background-color: #1a1a1a; /* Caja de fondo oscuro */
+    color: white;
+    border: 1px solid #333333; /* Borde de la caja */
+    border-radius: 8px;
+    padding: 16px;
+    width: calc(33.33% - 16px); /* Tres columnas */
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.client-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.client-card h3 {
+    margin: 0 0 8px;
+}
+
+.client-card p {
+    margin: 4px 0;
+}
+
+.no-clients {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.no-clients button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: black;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
