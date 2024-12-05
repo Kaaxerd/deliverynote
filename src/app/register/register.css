@@ -1,4 +1,4 @@
-h1 {
+h1, p {
     text-align: center;
 }
 
@@ -21,4 +21,38 @@ h1 {
 .register-container form input[type="password"],
 .register-container form input[type="email"] {
     color: black;
+}
+
+/* VALIDACIÓN */
+
+.validation-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Cambiado de center a flex-start */
+    height: 100vh;
+    padding-top: 20px; /* Añadido para dar un poco de espacio desde arriba */
+}
+
+.input-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.input-container div {
+    margin-bottom: 15px;
+}
+
+.input-container input {
+    width: 40px; /* Ajusta el ancho para que no sean alargadas */
+    height: 40px; /* Aumenta la altura para que sean más grandes */
+    padding: 5px; /* Ajusta el padding para centrado interno */
+    font-size: 18px; /* Tamaño de fuente más grande */
+    text-align: center; /* Centra el texto */
+    box-sizing: border-box;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Bordes redondeados */
 }
