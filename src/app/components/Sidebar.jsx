@@ -7,9 +7,6 @@ const Sidebar = () => {
         <nav className="sidebar">
             <ul>
                 <li>
-                    <Link href="/dashboard">Resumen</Link>
-                </li>
-                <li>
                     <Link href="/clients">Clientes</Link>
                 </li>
                 <li>

@@ -1,7 +1,3 @@
-//
-// INICIO DE SESIÓN
-//
-
 "use client";
 import { useState } from 'react';
 import Header from '../components/Header';
@@ -27,19 +23,23 @@ export default function Login() {
                 }),
             });
 
-            const token = localStorage('jwt');
-
             const contentType = response.headers.get('content-type');
 
             if (response.ok) {
                 if (contentType && contentType.includes('application/json')) {
                     const data = await response.json();
                     console.log('User logged in successfully:', data);
+
+                    // Guarda el token en localStorage si se devuelve uno
+                    if (data.token) {
+                        localStorage.setItem('jwt', data.token);
+                    }
                     alert('User logged in successfully!');
                 } else {
                     const textData = await response.text(); // Si no es JSON, obten el texto
                     console.log('User logged in successfully:', textData);
-                    alert('User logged in successfully!');
+                    //alert('User logged in successfully!');
+                    window.location.href = '/clients';
                 }
             } else {
                 if (contentType && contentType.includes('application/json')) {
@@ -52,7 +52,7 @@ export default function Login() {
                     alert(`Login failed: ${errorText}`);
                 }
             }
-        } catch(error) {
+        } catch (error) {
             console.error(error);
         }
 
@@ -89,7 +89,6 @@ export default function Login() {
                     <button type="submit">Login</button>
                 </form>
             </div>
-            
         </>
     );
 }
