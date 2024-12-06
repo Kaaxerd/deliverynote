@@ -23,12 +23,18 @@ nav ul li {
     margin: 0 15px;
 }
 
-nav ul li a {
+nav ul li a,
+nav ul li button {
     text-decoration: none;
     color: #007bff;
     font-size: 1rem;
+    background: none;  /* Aseguramos que no tenga fondo por defecto */
+    border: none;      /* Quitamos el borde del botón */
+    cursor: pointer;   /* El cursor cambia a mano */
+    font-family: inherit; /* Heredamos la fuente */
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li button:hover {
     text-decoration: underline;
 }

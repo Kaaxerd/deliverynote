@@ -39,8 +39,9 @@ export default function Login() {
                     const textData = await response.text(); // Si no es JSON, obten el texto
                     console.log('User logged in successfully:', textData);
                     //alert('User logged in successfully!');
-                    window.location.href = '/clients';
                 }
+
+                window.location.href = '/clients';
             } else {
                 if (contentType && contentType.includes('application/json')) {
                     const errorData = await response.json();

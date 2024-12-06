@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -8,12 +8,40 @@ import './clients.css';
 export default function DashboardPage() {
     const [clients, setClients] = useState([]);
     const [isCreating, setIsCreating] = useState(false);
-    const [newClient, setNewClient] = useState({ name: '', email: '', phone: '' });
+    const [newClient, setNewClient] = useState({
+        name: '',
+        cif: '',
+        address: {
+            street: '',
+            number: '',
+            postal: '',
+            city: '',
+            province: ''
+        }
+    });
 
     useEffect(() => {
+        const token = localStorage.getItem('jwt');
+        if (!token) {
+            console.error('No token found. Please log in.');
+            return;
+        }
+
         const fetchClients = async () => {
             try {
-                const response = await fetch('https://bildy-rpmaya.koyeb.app/api/client');
+                const response = await fetch('https://bildy-rpmaya.koyeb.app/api/client', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage);
+                }
+
                 const data = await response.json();
                 setClients(data);
             } catch (error) {
@@ -30,25 +58,52 @@ export default function DashboardPage() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer TU_TOKEN_AQUI' // Reemplaza TU_TOKEN_AQUI por el token proporcionado
+                    'Authorization': 'Bearer TU_TOKEN_AQUI'
                 },
                 body: JSON.stringify(newClient),
             });
-    
+
             if (!response.ok) {
                 const errorMessage = await response.text();
                 console.error('Error creating client:', errorMessage);
                 return;
             }
-    
+
             const createdClient = await response.json();
             setClients([...clients, createdClient]);
-            setNewClient({ name: '', email: '', phone: '' });
+            setNewClient({
+                name: '',
+                cif: '',
+                address: {
+                    street: '',
+                    number: '',
+                    postal: '',
+                    city: '',
+                    province: ''
+                }
+            });
             setIsCreating(false);
         } catch (error) {
             console.error('Error creating client:', error.message);
         }
-    };       
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name in newClient.address) {
+            // If the change is within address fields
+            setNewClient({
+                ...newClient,
+                address: { ...newClient.address, [name]: value }
+            });
+        } else {
+            // If the change is in top-level fields (name, cif)
+            setNewClient({
+                ...newClient,
+                [name]: value
+            });
+        }
+    };
 
     return (
         <div className='layout'>
@@ -62,8 +117,10 @@ export default function DashboardPage() {
                             {clients.map((client, index) => (
                                 <div className="client-card" key={index}>
                                     <h3>{client.name}</h3>
-                                    <p>{client.email}</p>
-                                    <p>{client.phone}</p>
+                                    <p>{client.cif}</p>
+                                    <p>{client.address.street} {client.address.number}</p>
+                                    <p>{client.address.city}, {client.address.province}</p>
+                                    <p>{client.address.postal}</p>
                                 </div>
                             ))}
                         </div>
@@ -81,20 +138,51 @@ export default function DashboardPage() {
                                 <input
                                     type="text"
                                     placeholder="Nombre"
+                                    name="name"
                                     value={newClient.name}
-                                    onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
+                                    onChange={handleChange}
                                 />
                                 <input
-                                    type="email"
-                                    placeholder="Email"
-                                    value={newClient.email}
-                                    onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
+                                    type="text"
+                                    placeholder="CIF"
+                                    name="cif"
+                                    value={newClient.cif}
+                                    onChange={handleChange}
                                 />
                                 <input
-                                    type="tel"
-                                    placeholder="Teléfono"
-                                    value={newClient.phone}
-                                    onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
+                                    type="text"
+                                    placeholder="Calle"
+                                    name="street"
+                                    value={newClient.address.street}
+                                    onChange={handleChange}
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Número"
+                                    name="number"
+                                    value={newClient.address.number}
+                                    onChange={handleChange}
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Código Postal"
+                                    name="postal"
+                                    value={newClient.address.postal}
+                                    onChange={handleChange}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Ciudad"
+                                    name="city"
+                                    value={newClient.address.city}
+                                    onChange={handleChange}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Provincia"
+                                    name="province"
+                                    value={newClient.address.province}
+                                    onChange={handleChange}
                                 />
                                 <div className="modal-actions">
                                     <button onClick={handleCreateClient}>Guardar</button>
