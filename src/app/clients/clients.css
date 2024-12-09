@@ -231,3 +231,35 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.client-info {
+    padding: 16px;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.client-info p {
+    margin: 5px 0;
+}
+
+.client-info strong {
+    font-size: 20px;
+    color: #00ABE4;
+}
+
+.content button {
+    background-color: #00ABE4;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.content button:hover {
+    background-color: #007ea7;
+}
