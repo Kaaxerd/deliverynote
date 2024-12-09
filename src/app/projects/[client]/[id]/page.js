@@ -127,7 +127,7 @@ export default function ProjectPage() {
                         <div className="project-details">
                             {isEditing ? (
                                 <div className="edit-form">
-                                    <p><strong>Editando:</strong> {project.name}</p>
+                                    <h2>Editando: {project.name}</h2>
                                     <input
                                         type="text"
                                         name="name"
@@ -154,7 +154,10 @@ export default function ProjectPage() {
                                         value={editedProject.internalCode}
                                         onChange={handleEditChange}
                                     />
-                                    <button onClick={handleSaveEdit}>Guardar Cambios</button>
+                                    <div className="edit-actions">
+                                        <button onClick={handleSaveEdit}>Guardar Cambios</button>
+                                        <button onClick={() => setIsEditing(false)}>Cancelar</button>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="project-info">

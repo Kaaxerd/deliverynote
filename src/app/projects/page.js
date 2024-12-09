@@ -184,38 +184,40 @@ export default function ProjectsPage() {
                     )}
 
                     {projects.length > 0 ? (
-                        <div className="project-list">
-                            <button onClick={() => setIsCreating(true)}>Crear Proyecto</button>
-                            {projects.map((project, index) => {
-                                const client = clients.find(
-                                    (client) => client._id === project.clientId
-                                );
-                                return (
-                                    <div className="project-card" key={index}>
-                                        <Link href={`/projects/${project.clientId}/${project._id}`}>
-                                            <h3>{project.name}</h3>
-                                            <p>
-                                                <strong>Cliente:</strong>{" "}
-                                                {client ? client.name : "Desconocido"}
-                                            </p>
-                                            <p>
-                                                <strong>Código Interno:</strong>{" "}
-                                                {project.internalCode || "Sin Código"}
-                                            </p>
-                                        </Link>
-                                        <button
-                                            onClick={() => handleDeleteClick(project._id)}
-                                        >
+                        <>
+                            <button className="create-project-button" onClick={() => setIsCreating(true)}>
+                                    Crear Proyecto
+                                </button>
+                            <div className="project-list">
+                                {projects.map((project, index) => {
+                                    const client = clients.find(
+                                        (client) => client._id === project.clientId
+                                    );
+                                    return (
+                                        <div className="project-card" key={index}>
+                                            <Link href={`/projects/${project.clientId}/${project._id}`}>
+                                                <h3>{project.name}</h3>
+                                                <p>
+                                                    <strong>Cliente:</strong>{" "}
+                                                    {client ? client.name : "Desconocido"}
+                                                </p>
+                                                <p>
+                                                    <strong>Código Interno:</strong>{" "}
+                                                    {project.internalCode || "Sin Código"}
+                                                </p>
+                                            </Link>
+                                            <button className="delete-button" onClick={() => handleDeleteClick(project._id)}>
                                             Eliminar
-                                        </button>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </>
                     ) : (
                         <div className="no-projects">
                             <p>No hay proyectos disponibles.</p>
-                            <button onClick={() => setIsCreating(true)}>
+                            <button className="create-project-button" onClick={() => setIsCreating(true)}>
                                 Crear Proyecto
                             </button>
                         </div>

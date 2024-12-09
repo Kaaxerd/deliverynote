@@ -176,24 +176,26 @@ export default function DashboardPage() {
                     )}
 
                     {clients.length > 0 ? (
-                        <div className="client-list">
+                        <>
                             <button onClick={() => setIsCreating(true)}>Crear Cliente</button>
-                            {clients.map((client, index) => {
-                                console.log('Client _id:', client._id); // Verifica que se muestre correctamente
-                                return (
-                                    <div className="client-card" key={index}>
-                                        <Link href={`/clients/${client._id}`}>
-                                            <h3>{client.name}</h3>
-                                            <p>{client.cif}</p>
-                                            <p>{client.address.street} {client.address.number}</p>
-                                            <p>{client.address.city}, {client.address.province}</p>
-                                            <p>{client.address.postal}</p>
-                                        </Link>
-                                        <button onClick={() => handleDeleteClick(client._id)}>Eliminar</button> {/* Se pasa el _id aquí */}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                            <div className="client-list">
+                                {clients.map((client, index) => {
+                                    console.log('Client _id:', client._id); // Verifica que se muestre correctamente
+                                    return (
+                                        <div className="client-card" key={index}>
+                                            <Link href={`/clients/${client._id}`}>
+                                                <h3>{client.name}</h3>
+                                                <p>{client.cif}</p>
+                                                <p>{client.address.street} {client.address.number}</p>
+                                                <p>{client.address.city}, {client.address.province}</p>
+                                                <p>{client.address.postal}</p>
+                                            </Link>
+                                            <button onClick={() => handleDeleteClick(client._id)}>Eliminar</button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </>
                     ) : (
                         <div className="no-clients">
                             <p>No hay clientes disponibles.</p>

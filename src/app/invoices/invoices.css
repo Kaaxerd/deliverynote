@@ -1,0 +1,321 @@
+/* Invoice list layout */
+.invoice-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.invoice-card {
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 16px;
+    width: calc(33.33% - 16px);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.invoice-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.invoice-card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #00ABE4;
+}
+
+.invoice-card p {
+    margin: 4px 0;
+}
+
+.invoice-card button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background-color: #ff4d4d; /* Color rojo */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.invoice-card button:hover {
+    background-color: #cc0000; /* Rojo oscuro cuando se pasa el ratón */
+}
+
+.no-invoices {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.no-invoices p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.no-invoices button {
+    background-color: #00ABE4;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.no-invoices button:hover {
+    background-color: #007ea7;
+}
+
+/* Estilo para los formularios de edición */
+.edit-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    color: black;
+}
+
+.edit-form input,
+.edit-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.edit-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-actions button:first-child {
+    background-color: #00ABE4;
+    color: white;
+}
+
+.edit-actions button:first-child:hover {
+    background-color: #007ea7;
+}
+
+.edit-actions button:last-child {
+    background-color: #ccc;
+    color: #333;
+}
+
+.edit-actions button:last-child:hover {
+    background-color: #bbb;
+}
+
+/* Invoice list layout */
+.invoice-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.invoice-card {
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 16px;
+    width: calc(33.33% - 16px);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.invoice-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.invoice-card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #00ABE4;
+}
+
+.invoice-card p {
+    margin: 4px 0;
+}
+
+.no-invoices {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.no-invoices p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.no-invoices button {
+    background-color: #00ABE4;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.no-invoices button:hover {
+    background-color: #007ea7;
+}
+
+/* Layout para la página */
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.content h1 {
+    color: #00ABE4;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.content button {
+    background-color: #00ABE4;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.content button:hover {
+    background-color: #007ea7;
+}
+
+.content .invoice-info {
+    padding: 16px;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.content .invoice-info p {
+    margin: 5px 0;
+}
+
+.invoice-info strong {
+    font-size: 20px;
+    color: #00ABE4;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: black;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-actions button:first-child {
+    background-color: #00ABE4;
+    color: white;
+}
+
+.modal-actions button:first-child:hover {
+    background-color: #007ea7;
+}
+
+.modal-actions button:last-child {
+    background-color: #ccc;
+    color: #333;
+}
+
+.modal-actions button:last-child:hover {
+    background-color: #bbb;
+}
+
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
