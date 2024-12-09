@@ -159,7 +159,16 @@ export default function ProjectPage() {
                             ) : (
                                 <div className="project-info">
                                     <p><strong>Nombre:</strong> {project.name}</p>
-                                    <p><strong>Cliente:</strong> {clients.find(c => c._id === project.clientId)?.name || 'N/A'}</p>
+                                    <p>
+                                        <strong>Cliente:</strong>{' '}
+                                        {clients.find(c => c._id === project.clientId) ? (
+                                            <Link href={`/clients/${project.clientId}`}>
+                                                {clients.find(c => c._id === project.clientId)?.name}
+                                            </Link>
+                                        ) : (
+                                            'N/A'
+                                        )}
+                                    </p>
                                     <p><strong>Código Interno:</strong> {project.internalCode}</p>
                                     <button onClick={() => setIsEditing(true)}>Editar</button>
                                 </div>

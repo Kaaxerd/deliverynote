@@ -1,18 +1,20 @@
 "use client";
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 
-const ClientPage = () => {
+export default function ClientProjectsPage() {
+    const params = useParams();
     const router = useRouter();
-    const { client } = router.query;
+    const { client } = params;
 
     useEffect(() => {
         if (client) {
+            // Redirige automáticamente a la página del cliente
             router.push(`/clients/${client}`);
+        } else {
+            console.error("No client ID provided in the URL.");
         }
-    }, [client]);
+    }, [client, router]);
 
-    return null;
-};
-
-export default ClientPage;
+    return null; // No muestra contenido mientras redirige
+}
