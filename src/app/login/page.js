@@ -34,11 +34,9 @@ export default function Login() {
                     if (data.token) {
                         localStorage.setItem('jwt', data.token);
                     }
-                    alert('User logged in successfully!');
                 } else {
                     const textData = await response.text(); // Si no es JSON, obten el texto
                     console.log('User logged in successfully:', textData);
-                    //alert('User logged in successfully!');
                 }
 
                 window.location.href = '/clients';

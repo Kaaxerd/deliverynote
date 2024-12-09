@@ -145,7 +145,8 @@ export default function Register() {
                     if (data.acknowledged) {
                         setMessage("Código de validación exitoso. Tu cuenta ha sido activada.");
                         setIsValidated(true); // Ahora actualizamos el estado para indicar que la cuenta está validada
-                        setStep(3);
+                        
+                        window.location.href = '/clients';
                     } else {
                         setMessage("El código de validación es incorrecto, por favor verifica.");
                     }

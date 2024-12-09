@@ -1,11 +1,11 @@
-.client-list {
+.project-list {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
 }
 
-.client-card {
-    background-color: #1a1a1a; /* Caja de fondo oscuro */
+.project-card {
+    background-color: #1a1a1a; /* Fondo oscuro */
     color: white;
     border: 1px solid #333333; /* Borde de la caja */
     border-radius: 8px;
@@ -15,25 +15,25 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.client-card:hover {
+.project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.client-card h3 {
+.project-card h3 {
     margin: 0 0 8px;
 }
 
-.client-card p {
+.project-card p {
     margin: 4px 0;
 }
 
-.no-clients {
+.no-projects {
     text-align: center;
     margin-top: 20px;
 }
 
-.no-clients button {
+.no-projects button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -59,7 +59,8 @@
     text-align: center;
 }
 
-.modal-content input {
+.modal-content input,
+.modal-content select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -113,7 +114,6 @@
     color: #444;
 }
 
-
 /* Estilo de los botones */
 .confirmation-message button {
     margin: 10px 15px;
@@ -142,4 +142,47 @@
 
 .confirmation-message .cancel-btn:hover {
     background-color: #bbb; /* Cambia el color al pasar el ratón */
+}
+
+/* Asegúrate de que los textos de los inputs sean negros */
+.edit-form input {
+    color: black; /* Texto en negro */
+    background-color: white; /* Fondo en blanco para contraste */
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Cambios de estilo cuando el input está enfocado */
+.edit-form input:focus {
+    border-color: #00ABE4; /* Cambiar el borde a azul brillante */
+    outline: none; /* Eliminar el contorno predeterminado */
+    box-shadow: 0 0 5px rgba(0, 171, 228, 0.5); /* Agregar un resplandor azul */
+}
+
+/* Botón de guardar en la sección de edición */
+.edit-form button {
+    padding: 10px 20px;
+    background-color: #00ABE4; /* Azul brillante */
+    color: white; /* Texto en blanco */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-form button:hover {
+    background-color: #007ea7; /* Azul más oscuro al pasar el ratón */
+}
+
+.edit-form button:focus {
+    outline: none;
+}
+
+/* Para un diseño general limpio en la sección de edición */
+.edit-form {
+    margin-top: 20px;
 }
