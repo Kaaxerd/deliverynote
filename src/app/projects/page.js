@@ -1,10 +1,10 @@
-"use client"; 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import '../dashboard/styles.css';
-import './projects.css';
+"use client";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import "../dashboard/styles.css";
+import "./projects.css";
 
 export default function ProjectsPage() {
     const [projects, setProjects] = useState([]);
@@ -13,28 +13,31 @@ export default function ProjectsPage() {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isProjectCreated, setIsProjectCreated] = useState(false);
     const [newProject, setNewProject] = useState({
-        name: '',
-        clientId: '',
-        internalCode: ''
+        name: "",
+        clientId: "",
+        internalCode: ""
     });
     const [projectToDelete, setProjectToDelete] = useState(null);
 
     useEffect(() => {
-        const token = localStorage.getItem('jwt');
+        const token = localStorage.getItem("jwt");
         if (!token) {
-            console.error('No token found. Please log in.');
+            console.error("No token found. Please log in.");
             return;
         }
 
         const fetchProjects = async () => {
             try {
-                const response = await fetch('https://bildy-rpmaya.koyeb.app/api/project', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
+                const response = await fetch(
+                    "https://bildy-rpmaya.koyeb.app/api/project",
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
 
                 if (!response.ok) {
                     const errorMessage = await response.text();
@@ -44,19 +47,22 @@ export default function ProjectsPage() {
                 const data = await response.json();
                 setProjects(data);
             } catch (error) {
-                console.error('Error fetching projects:', error);
+                console.error("Error fetching projects:", error);
             }
         };
 
         const fetchClients = async () => {
             try {
-                const response = await fetch('https://bildy-rpmaya.koyeb.app/api/client', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
+                const response = await fetch(
+                    "https://bildy-rpmaya.koyeb.app/api/client",
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
 
                 if (!response.ok) {
                     const errorMessage = await response.text();
@@ -66,7 +72,7 @@ export default function ProjectsPage() {
                 const data = await response.json();
                 setClients(data);
             } catch (error) {
-                console.error('Error fetching clients:', error);
+                console.error("Error fetching clients:", error);
             }
         };
 
@@ -75,35 +81,38 @@ export default function ProjectsPage() {
     }, []);
 
     const handleCreateProject = async () => {
-        const token = localStorage.getItem('jwt');
+        const token = localStorage.getItem("jwt");
         try {
-            const response = await fetch('https://bildy-rpmaya.koyeb.app/api/project', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(newProject),
-            });
+            const response = await fetch(
+                "https://bildy-rpmaya.koyeb.app/api/project",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(newProject),
+                }
+            );
 
             if (!response.ok) {
                 const errorMessage = await response.text();
-                console.error('Error creating project:', errorMessage);
+                console.error("Error creating project:", errorMessage);
                 return;
             }
 
             const createdProject = await response.json();
             setProjects([...projects, createdProject]);
             setNewProject({
-                name: '',
-                clientId: '',
-                internalCode: ''
+                name: "",
+                clientId: "",
+                internalCode: ""
             });
             setIsCreating(false);
             setIsProjectCreated(true);
             setTimeout(() => setIsProjectCreated(false), 3000);
         } catch (error) {
-            console.error('Error creating project:', error);
+            console.error("Error creating project:", error);
         }
     };
 
@@ -113,27 +122,32 @@ export default function ProjectsPage() {
     };
 
     const handleConfirmDelete = async () => {
-        const token = localStorage.getItem('jwt');
+        const token = localStorage.getItem("jwt");
         try {
-            const response = await fetch(`https://bildy-rpmaya.koyeb.app/api/project/${projectToDelete}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
+            const response = await fetch(
+                `https://bildy-rpmaya.koyeb.app/api/project/${projectToDelete}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             if (!response.ok) {
                 const errorMessage = await response.text();
-                console.error('Error deleting project:', errorMessage);
+                console.error("Error deleting project:", errorMessage);
                 return;
             }
 
-            setProjects(projects.filter((project) => project._id !== projectToDelete));
+            setProjects(
+                projects.filter((project) => project._id !== projectToDelete)
+            );
             setIsDeleting(false);
             setProjectToDelete(null);
         } catch (error) {
-            console.error('Error deleting project:', error);
+            console.error("Error deleting project:", error);
         }
     };
 
@@ -146,7 +160,7 @@ export default function ProjectsPage() {
         const { name, value } = e.target;
         setNewProject({
             ...newProject,
-            [name]: value
+            [name]: value,
         });
     };
 
@@ -162,7 +176,9 @@ export default function ProjectsPage() {
                         <div className="confirmation-modal">
                             <div className="confirmation-message">
                                 <p>¡Proyecto creado correctamente!</p>
-                                <button onClick={() => setIsProjectCreated(false)}>Cerrar</button>
+                                <button onClick={() => setIsProjectCreated(false)}>
+                                    Cerrar
+                                </button>
                             </div>
                         </div>
                     )}
@@ -170,20 +186,38 @@ export default function ProjectsPage() {
                     {projects.length > 0 ? (
                         <div className="project-list">
                             <button onClick={() => setIsCreating(true)}>Crear Proyecto</button>
-                            {projects.map((project, index) => (
-                                <div className="project-card" key={index}>
-                                    <Link href={`/projects/${project._id}`}>
-                                        <h3>{project.name}</h3>
-                                        <p><strong>Código Interno:</strong> {project.internalCode}</p>
-                                    </Link>
-                                    <button onClick={() => handleDeleteClick(project._id)}>Eliminar</button>
-                                </div>
-                            ))}
+                            {projects.map((project, index) => {
+                                const client = clients.find(
+                                    (client) => client._id === project.clientId
+                                );
+                                return (
+                                    <div className="project-card" key={index}>
+                                        <Link href={`/projects/${project.clientId}/${project._id}`}>
+                                            <h3>{project.name}</h3>
+                                            <p>
+                                                <strong>Cliente:</strong>{" "}
+                                                {client ? client.name : "Desconocido"}
+                                            </p>
+                                            <p>
+                                                <strong>Código Interno:</strong>{" "}
+                                                {project.internalCode || "Sin Código"}
+                                            </p>
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDeleteClick(project._id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                );
+                            })}
                         </div>
                     ) : (
                         <div className="no-projects">
                             <p>No hay proyectos disponibles.</p>
-                            <button onClick={() => setIsCreating(true)}>Crear Proyecto</button>
+                            <button onClick={() => setIsCreating(true)}>
+                                Crear Proyecto
+                            </button>
                         </div>
                     )}
 
@@ -219,7 +253,9 @@ export default function ProjectsPage() {
                                 />
                                 <div className="modal-actions">
                                     <button onClick={handleCreateProject}>Guardar</button>
-                                    <button onClick={() => setIsCreating(false)}>Cancelar</button>
+                                    <button onClick={() => setIsCreating(false)}>
+                                        Cancelar
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -228,9 +264,13 @@ export default function ProjectsPage() {
                     {isDeleting && (
                         <div className="modal">
                             <div className="modal-content">
-                                <h2>¿Estás seguro de que deseas eliminar este proyecto?</h2>
+                                <h2>
+                                    ¿Estás seguro de que deseas eliminar este proyecto?
+                                </h2>
                                 <div className="modal-actions">
-                                    <button onClick={handleConfirmDelete}>Sí, Eliminar</button>
+                                    <button onClick={handleConfirmDelete}>
+                                        Sí, Eliminar
+                                    </button>
                                     <button onClick={handleCancelDelete}>Cancelar</button>
                                 </div>
                             </div>

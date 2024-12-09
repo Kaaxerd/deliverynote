@@ -2,21 +2,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
-import '../../dashboard/styles.css';
-import '../projects.css';
+import Header from '../../../components/Header'; // Ajusta la ruta si es necesario
+import Sidebar from '../../../components/Sidebar'; // Ajusta la ruta si es necesario
+import '../../../dashboard/styles.css';
+import '../../projects.css';
 
 export default function ProjectPage() {
-    const params = useParams(); // Obtiene todos los parámetros dinámicos
-    const { clientId, id } = params; // Extrae clientId e id de los parámetros
+    const params = useParams(); // Obtiene parámetros dinámicos
+    const { client, id } = params; // Extrae `client` e `id` de los parámetros
+
     const [project, setProject] = useState(null);
     const [clients, setClients] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [editedProject, setEditedProject] = useState({});
 
     useEffect(() => {
-        if (!clientId || !id) {
+        if (!client || !id) {
             console.error('No client ID or project ID found in URL.');
             return;
         }
@@ -29,8 +30,7 @@ export default function ProjectPage() {
 
         const fetchProjectData = async () => {
             try {
-                // Fetch del proyecto
-                const projectResponse = await fetch(`https://bildy-rpmaya.koyeb.app/api/project/${clientId}/${id}`, {
+                const projectResponse = await fetch(`https://bildy-rpmaya.koyeb.app/api/project/${client}/${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export default function ProjectPage() {
 
                 const projectData = await projectResponse.json();
                 setProject(projectData);
-                setEditedProject({ ...projectData }); // Inicializa el estado de edición con los datos actuales del proyecto
+                setEditedProject({ ...projectData });
             } catch (error) {
                 console.error('Error fetching project data:', error);
             }
@@ -75,7 +75,7 @@ export default function ProjectPage() {
 
         fetchProjectData();
         fetchClients();
-    }, [clientId, id]);
+    }, [client, id]);
 
     const handleEditChange = (e) => {
         const { name, value } = e.target;
@@ -88,7 +88,7 @@ export default function ProjectPage() {
     const handleSaveEdit = async () => {
         const token = localStorage.getItem('jwt');
         try {
-            const response = await fetch(`https://bildy-rpmaya.koyeb.app/api/project/${clientId}/${id}`, {
+            const response = await fetch(`https://bildy-rpmaya.koyeb.app/api/project/${client}/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,7 +119,6 @@ export default function ProjectPage() {
                 <Sidebar />
                 <div className="content">
                     <h1>Detalles del Proyecto</h1>
-
                     <Link href="/projects">
                         <button>Volver a los proyectos</button>
                     </Link>
