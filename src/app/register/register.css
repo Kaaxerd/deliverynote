@@ -1,44 +1,53 @@
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+}
+
 h1, p {
     text-align: center;
+    color: #ffffff;
 }
 
 .register-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 20px;
 }
 
 .register-container form {
-    border: 1px solid #ccc;
+    background-color: #333;
+    border: 1px solid #555;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .register-container form input[type="text"],
 .register-container form input[type="password"],
 .register-container form input[type="email"] {
-    color: black;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #444;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 4px;
 }
-
-/* VALIDACIÓN */
 
 .validation-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Cambiado de center a flex-start */
-    height: 100vh;
-    padding-top: 20px; /* Añadido para dar un poco de espacio desde arriba */
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
 .input-container {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
 .input-container div {
@@ -46,13 +55,41 @@ h1, p {
 }
 
 .input-container input {
-    width: 40px; /* Ajusta el ancho para que no sean alargadas */
-    height: 40px; /* Aumenta la altura para que sean más grandes */
-    padding: 5px; /* Ajusta el padding para centrado interno */
-    font-size: 18px; /* Tamaño de fuente más grande */
-    text-align: center; /* Centra el texto */
-    box-sizing: border-box;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 4px; /* Bordes redondeados */
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+.validation-container button {
+    margin-top: 15px;
+    width: 200px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00ABE4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #007ea7;
+}
+
+.success-message {
+    color: #00ABE4;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
 }

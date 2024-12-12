@@ -101,7 +101,6 @@ export default function Register() {
                     // Si la API devuelve un token, guardarlo en localStorage
                     if (data.token) {
                         localStorage.setItem("jwt", data.token); // Guardamos el token en localStorage
-                        setMessage("Registro exitoso. Ahora valida tu cuenta.");
 
                         // Llamamos a la función para avanzar al siguiente paso
                         setStep(2); // Cambiar al paso de validación
@@ -166,6 +165,8 @@ export default function Register() {
             <Header />
             <h1>{step === 1 ? 'Register' : 'Verify Your Account'}</h1>
 
+            {message && <p className="error-message">{message}</p>}
+
             <div className="register-container">
                 <form onSubmit={handleSubmit}>
                     {step === 1 && (
@@ -206,17 +207,17 @@ export default function Register() {
 
                     {step === 2 && (
                         <>
-                            <h1>Enter verification code</h1>
-                            <p>We have just sent you a verification code to {formData.email}</p>
+                            <h1>Verificar tu cuenta</h1>
+                            <p>Registro exitoso. Ahora valida tu cuenta.</p>
+                            <p>Hemos enviado un código de verificación a {formData.email}</p>
                             <div className="validation-container">
                                 <div className='input-container'>
                                     {formData.verificationCode.map((value, index) => (
                                         <input
                                             key={index}
-                                            id={`input-${index}`} // Asigna un id único a cada input
+                                            id={`input-${index}`}
                                             type="text"
                                             maxLength="1"
-                                            style={{ width: '40px', height: '40px', marginRight: '5px', textAlign: 'center' }}
                                             value={value}
                                             onChange={(e) => handleInputChange(index, e.target.value)}
                                             onKeyDown={(e) => handleKeyDown(index, e)}
